@@ -1,7 +1,10 @@
 import { useState, type FormEvent } from "react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { Spotlight } from "@/components/ui/spotlight-new";
+import { ChevronDown } from "lucide-react";
 import { Button } from "../components/Button";
 import { PageHero } from "../components/PageHero";
-import { Reveal } from "../components/Reveal";
 import { EVENT_TYPES, SITE } from "../data/site";
 
 interface Inquiry {
@@ -13,6 +16,25 @@ interface Inquiry {
   type: string;
   message: string;
 }
+
+const FAQ = [
+  {
+    q: "How many guests can you host?",
+    a: "The dining room seats 68, with an eight-seat bar and patios on both levels. Full buyouts are available for larger celebrations.",
+  },
+  {
+    q: "Can the menu be customised?",
+    a: "Yes. Our team builds a shared, family-style menu around your occasion, dietary needs and budget, from starters through dessert.",
+  },
+  {
+    q: "How far ahead should we book?",
+    a: "The earlier the better, especially for Friday and Saturday evenings and the holiday season. Send the inquiry and we will confirm availability within two business days.",
+  },
+  {
+    q: "Is there a minimum spend?",
+    a: "Minimums depend on the space, the day and the size of your party. We will share them with your first quote so there are no surprises.",
+  },
+];
 
 const EMPTY: Inquiry = { name: "", email: "", phone: "", date: "", guests: "", type: "", message: "" };
 
@@ -70,18 +92,18 @@ export function Events() {
 
       <section className="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:grid-cols-[1fr_1.2fr] md:px-8 md:py-32">
         <div className="flex flex-col gap-8">
-          <Reveal>
+          <BlurFade inView>
             <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">Host your next event</h2>
             <p className="mt-5 max-w-lg leading-relaxed text-sand/80">
               Inspired by creativity and crafted with intention, The Leo provides an unforgettable backdrop for
               gatherings of all kinds, paired with expressive cuisine and exceptional service. Our team will work with
               you to create a seamless celebration designed around your occasion.
             </p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <img src="/images/table-wide.webp" alt="A table of shared platters at The Leo" className="aspect-[4/3] w-full rounded-sm object-cover" loading="lazy" />
-          </Reveal>
-          <Reveal delay={0.15}>
+          </BlurFade>
+          <BlurFade inView delay={0.1}>
+            <img src="/images/art-sunflowers.webp" alt="Sunflowers painted in thick impasto brushstrokes" className="aspect-[4/5] w-full max-w-sm rounded-sm object-cover" loading="lazy" />
+          </BlurFade>
+          <BlurFade inView delay={0.15}>
             <p className="text-sm text-muted">
               Prefer to talk? Call{" "}
               <a href={SITE.phoneHref} className="text-cream underline underline-offset-4">
@@ -93,11 +115,21 @@ export function Events() {
               </a>
               .
             </p>
-          </Reveal>
+          </BlurFade>
         </div>
 
-        <Reveal delay={0.1}>
-          <form onSubmit={submit} noValidate className="flex flex-col gap-6 rounded-sm border border-line bg-night-2 p-6 md:p-10">
+        <BlurFade inView delay={0.1}>
+          <form onSubmit={submit} noValidate className="relative flex flex-col gap-6 overflow-hidden rounded-sm border border-line bg-night-2 p-6 md:p-10">
+            <Spotlight
+              gradientFirst="radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(40, 45%, 60%, .12) 0, hsla(40, 45%, 50%, .04) 50%, hsla(40, 45%, 40%, 0) 80%)"
+              gradientSecond="radial-gradient(50% 50% at 50% 50%, hsla(40, 45%, 60%, .08) 0, hsla(40, 45%, 50%, .03) 80%, transparent 100%)"
+              gradientThird="radial-gradient(50% 50% at 50% 50%, hsla(40, 45%, 60%, .06) 0, hsla(40, 45%, 40%, .02) 80%, transparent 100%)"
+              width={420}
+              height={900}
+              smallWidth={160}
+              translateY={-200}
+              duration={8}
+            />
             <fieldset>
               <legend className="font-display text-xs uppercase tracking-[0.22em] text-gold-2">What type of event are you hosting?</legend>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -162,7 +194,35 @@ export function Events() {
               </p>
             ) : null}
           </form>
-        </Reveal>
+        </BlurFade>
+      </section>
+
+      <section className="border-t border-line bg-night-2">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 md:grid-cols-[1fr_1.4fr] md:px-8 md:py-28">
+          <BlurFade inView>
+            <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">Good to know</h2>
+            <p className="mt-5 max-w-md leading-relaxed text-sand/80">
+              The short version of what most hosts ask us first. Everything else, we will work out together.
+            </p>
+          </BlurFade>
+          <BlurFade inView delay={0.1}>
+            <Accordion className="flex w-full flex-col divide-y divide-line border-y border-line" transition={{ duration: 0.25, ease: "easeOut" }}>
+              {FAQ.map((item) => (
+                <AccordionItem key={item.q} value={item.q} className="py-4">
+                  <AccordionTrigger className="w-full cursor-pointer text-left">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="font-display text-base uppercase tracking-[0.12em] text-cream">{item.q}</span>
+                      <ChevronDown size={18} className="shrink-0 text-gold-2 transition-transform duration-200 group-data-expanded:rotate-180" />
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="pt-3 max-w-2xl leading-relaxed text-sand/80">{item.a}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </BlurFade>
+        </div>
       </section>
     </>
   );
