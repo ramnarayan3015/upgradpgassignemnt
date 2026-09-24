@@ -3,25 +3,16 @@ import { motion, useReducedMotion } from "motion/react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { InfiniteSlider } from "@/components/ui/infinite-slider";
 import { Magnetic } from "@/components/ui/magnetic";
-import { ParallaxScroll } from "@/components/ui/parallax-scroll";
 import { Particles } from "@/components/ui/particles";
 import { TextEffect } from "@/components/ui/text-effect";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Tilt } from "@/components/ui/tilt";
+import { AccordionGallery } from "../components/AccordionGallery";
 import { ButtonLink } from "../components/Button";
+import { EveningJourney } from "../components/EveningJourney";
+import { ReserveButton } from "../components/reserve/ReserveButton";
+import { ScrollCue } from "../components/ScrollCue";
 import { CHEFS, SIGNATURES, SITE } from "../data/site";
-
-const ROOM = [
-  "/images/hero-mural.webp",
-  "/images/bar-tall.webp",
-  "/images/table-wide.webp",
-  "/images/mural-tall.webp",
-  "/images/pass-wide.webp",
-  "/images/cocktail-pour.webp",
-  "/images/stairs-square.webp",
-  "/images/crab-bowl.webp",
-  "/images/chef-grill.webp",
-];
 
 function Hero() {
   const reduce = useReducedMotion();
@@ -30,24 +21,14 @@ function Hero() {
       {reduce ? (
         <img src="/images/art-starry-sky.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
       ) : (
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/images/art-starry-sky.webp"
-          aria-hidden="true"
-        >
+        <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline poster="/images/art-starry-sky.webp" aria-hidden="true">
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-night via-night/55 to-night/15" />
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-night/70 to-transparent" />
-      {reduce ? null : (
-        <Particles className="absolute inset-0" quantity={70} color="#e2c48f" size={0.6} staticity={35} ease={70} />
-      )}
-      <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-24 md:px-8 md:pb-24">
+      {reduce ? null : <Particles className="absolute inset-0" quantity={70} color="#e2c48f" size={0.6} staticity={35} ease={70} />}
+      <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-24 md:px-8 md:pb-20">
         <TextShimmer as="p" className="font-display text-xs uppercase tracking-[0.3em] [--base-color:#a58758] [--base-gradient-color:#f1e5d0]" duration={2.4}>
           Now open in Downtown Markham
         </TextShimmer>
@@ -70,13 +51,13 @@ function Hero() {
           Chef Alvin Leung's pan-Asian chophouse, where land meets sea beneath a painted sky.
         </motion.p>
         <motion.div
-          className="mt-8 flex flex-wrap gap-3"
+          className="mt-8 flex flex-wrap items-center gap-3"
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.05, duration: 0.7 }}
         >
           <Magnetic intensity={0.3} range={100}>
-            <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+            <ReserveButton>Reserve a table</ReserveButton>
           </Magnetic>
           <Magnetic intensity={0.3} range={100}>
             <ButtonLink to="/menu" variant="outline">
@@ -84,6 +65,7 @@ function Hero() {
             </ButtonLink>
           </Magnetic>
         </motion.div>
+        <ScrollCue className="mt-12 hidden md:flex" />
       </div>
     </section>
   );
@@ -109,12 +91,7 @@ function Statement() {
       </BlurFade>
       <BlurFade inView delay={0.2}>
         <Tilt rotationFactor={5} className="rounded-sm">
-          <img
-            src="/images/art-land-sea.webp"
-            alt="Painting of dark earth meeting a cobalt sea in thick brushstrokes"
-            className="aspect-[16/10] w-full rounded-sm object-cover"
-            loading="lazy"
-          />
+          <img src="/images/art-land-sea.webp" alt="Painting of dark earth meeting a cobalt sea in thick brushstrokes" className="aspect-[16/10] w-full rounded-sm object-cover" loading="lazy" />
         </Tilt>
       </BlurFade>
     </section>
@@ -162,16 +139,14 @@ function Space() {
   return (
     <section className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
       <BlurFade inView className="max-w-2xl">
-        <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">
-          Beneath a sky of swirling fire
-        </h2>
+        <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">Beneath a sky of swirling fire</h2>
         <p className="mt-5 leading-relaxed text-sand/80">
           Sixty-eight seats, an eight-seat bar and two patios in the heart of Downtown Markham. Downstairs the ceiling
-          turns to The Starry Night; upstairs, sunflowers. The mural follows you up the stairs.
+          turns to The Starry Night; upstairs, sunflowers. Hover, or tap, to walk through.
         </p>
       </BlurFade>
       <BlurFade inView delay={0.15} className="mt-12">
-        <ParallaxScroll images={ROOM} className="h-[36rem] rounded-sm md:h-[44rem]" />
+        <AccordionGallery />
       </BlurFade>
     </section>
   );
@@ -267,7 +242,7 @@ function Visit() {
         </div>
         <div className="mt-10 flex flex-wrap gap-3">
           <Magnetic intensity={0.3} range={100}>
-            <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+            <ReserveButton>Reserve a table</ReserveButton>
           </Magnetic>
           <ButtonLink to="/events" variant="outline">
             Private events
@@ -293,6 +268,7 @@ export function Home() {
     <>
       <Hero />
       <Statement />
+      <EveningJourney />
       <Signatures />
       <Space />
       <Chefs />

@@ -5,9 +5,11 @@ import { Spotlight } from "@/components/ui/spotlight-new";
 import { ChevronDown } from "lucide-react";
 import { Button } from "../components/Button";
 import { PageHero } from "../components/PageHero";
-import { EVENT_TYPES, SITE } from "../data/site";
+import { Tilt } from "@/components/ui/tilt";
+import { EVENT_TYPES, SITE, SPACES } from "../data/site";
 
 interface Inquiry {
+  space: string;
   name: string;
   email: string;
   phone: string;
@@ -36,7 +38,7 @@ const FAQ = [
   },
 ];
 
-const EMPTY: Inquiry = { name: "", email: "", phone: "", date: "", guests: "", type: "", message: "" };
+const EMPTY: Inquiry = { space: "", name: "", email: "", phone: "", date: "", guests: "", type: "", message: "" };
 
 const field =
   "w-full rounded-sm border border-line bg-night px-4 py-3 text-cream placeholder:text-muted/70 transition-colors focus:border-gold-2 focus:outline-none";
@@ -73,6 +75,7 @@ export function Events() {
         `Preferred date: ${form.date || "flexible"}`,
         `Guests: ${form.guests}`,
         `Event type: ${form.type}`,
+        `Space: ${form.space || "undecided"}`,
         "",
         form.message,
       ].join("\n"),
@@ -90,6 +93,41 @@ export function Events() {
         intro="Private space bookings, customised menus and tailored dining experiences for gatherings of all kinds."
       />
 
+      <section className="mx-auto max-w-7xl px-5 pt-24 md:px-8 md:pt-32">
+        <BlurFade inView>
+          <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">Choose your space</h2>
+          <p className="mt-4 max-w-xl leading-relaxed text-sand/80">Pick where the evening happens. It carries into your inquiry below.</p>
+        </BlurFade>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" role="group" aria-label="Spaces">
+          {SPACES.map((space, index) => {
+            const selected = form.space === space.name;
+            return (
+              <BlurFade key={space.id} inView delay={index * 0.06}>
+                <Tilt rotationFactor={6} className="h-full">
+                  <button
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setForm((current) => ({ ...current, space: selected ? "" : space.name }))}
+                    className={`flex h-full w-full cursor-pointer flex-col justify-between gap-6 rounded-sm border p-6 text-left transition-colors ${
+                      selected ? "border-gold-2 bg-night-2" : "border-line bg-night-2/60 hover:border-cream/40"
+                    }`}
+                  >
+                    <div>
+                      <p className="font-display text-lg uppercase tracking-[0.12em]">{space.name}</p>
+                      <p className="mt-1 text-sm text-gold-2">{space.capacity}</p>
+                    </div>
+                    <p className="text-sm leading-relaxed text-sand/75">{space.note}</p>
+                    <span className={`font-display text-[11px] uppercase tracking-[0.22em] ${selected ? "text-gold-2" : "text-cream/50"}`}>
+                      {selected ? "Selected" : "Select"}
+                    </span>
+                  </button>
+                </Tilt>
+              </BlurFade>
+            );
+          })}
+        </div>
+      </section>
+
       <section className="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:grid-cols-[1fr_1.2fr] md:px-8 md:py-32">
         <div className="flex flex-col gap-8">
           <BlurFade inView>
@@ -102,6 +140,7 @@ export function Events() {
           </BlurFade>
           <BlurFade inView delay={0.1}>
             <img src="/images/art-sunflowers.webp" alt="Sunflowers painted in thick impasto brushstrokes" className="aspect-[4/5] w-full max-w-sm rounded-sm object-cover" loading="lazy" />
+            {form.space ? <p className="mt-4 text-sm text-gold-2">Planning around {form.space.toLowerCase()}.</p> : null}
           </BlurFade>
           <BlurFade inView delay={0.15}>
             <p className="text-sm text-muted">

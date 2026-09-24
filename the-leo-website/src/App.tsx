@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
+import { MobileBar } from "./components/MobileBar";
+import { Preloader } from "./components/Preloader";
+import { ReserveProvider } from "./components/reserve/ReserveProvider";
 import { Home } from "./pages/Home";
 import { Story } from "./pages/Story";
 import { Menu } from "./pages/Menu";
@@ -36,30 +39,40 @@ function ScrollAndTitle() {
 
 export default function App() {
   const location = useLocation();
+  const reduce = useReducedMotion();
   return (
-    <div className="min-h-dvh bg-night text-cream">
-      <ScrollProgress className="fixed inset-x-0 top-0 z-[60] h-0.5 bg-gold-2" />
-      <ScrollAndTitle />
-      <Nav />
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.main
-          key={location.pathname}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/story" element={<Story />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </motion.main>
-      </AnimatePresence>
-      <Footer />
-    </div>
+    <ReserveProvider>
+      <div className="min-h-dvh bg-night pb-20 text-cream md:pb-0">
+        <Preloader />
+        <ScrollProgress className="fixed inset-x-0 top-0 z-[60] h-0.5 bg-gold-2" />
+        <ScrollAndTitle />
+        <Nav />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.main key={location.pathname}>
+            {reduce ? null : (
+              <motion.div
+                className="pointer-events-none fixed inset-0 z-[70] origin-top bg-night"
+                initial={{ scaleY: 1 }}
+                animate={{ scaleY: 0 }}
+                exit={{ scaleY: 1, transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] } }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+                style={{ transformOrigin: "top" }}
+                aria-hidden="true"
+              />
+            )}
+            <Routes location={location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/story" element={<Story />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </motion.main>
+        </AnimatePresence>
+        <Footer />
+        <MobileBar />
+      </div>
+    </ReserveProvider>
   );
 }

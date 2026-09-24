@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Lens } from "@/components/ui/lens";
-import { ButtonLink } from "../components/Button";
+import { HoverMenu } from "../components/HoverMenu";
+import { ReserveButton } from "../components/reserve/ReserveButton";
 import { PageHero } from "../components/PageHero";
-import { MENU, SITE, TASTING_MENU } from "../data/site";
+import { MENU, TASTING_MENU } from "../data/site";
 
 export function Menu() {
   const [active, setActive] = useState(MENU[0]!.id);
@@ -74,42 +75,8 @@ export function Menu() {
           </BlurFade>
         </section>
 
-        <div className="flex flex-col gap-20 pb-24 md:pb-32">
-          {MENU.map((section) => (
-            <section key={section.id} id={section.id} className="scroll-mt-40 grid gap-8 md:grid-cols-[240px_1fr]">
-              <BlurFade inView>
-                <h2 className="font-display text-3xl font-light uppercase tracking-[0.1em] md:sticky md:top-40">{section.title}</h2>
-              </BlurFade>
-              <div>
-                {section.note ? (
-                  <BlurFade inView>
-                    <p className="max-w-2xl leading-relaxed text-sand/80">{section.note}</p>
-                  </BlurFade>
-                ) : null}
-                {section.items.length > 0 ? (
-                  <ul className={`divide-y divide-line ${section.note ? "mt-8" : ""}`}>
-                    {section.items.map((dish, index) => (
-                      <BlurFade key={dish.name} inView delay={index * 0.04}>
-                        <li className="flex items-baseline justify-between gap-6 py-5">
-                          <div>
-                            <p className="font-display text-lg uppercase tracking-[0.1em]">{dish.name}</p>
-                            <p className="mt-1 text-sm text-sand/70">{dish.description}</p>
-                          </div>
-                          {dish.price != null ? (
-                            <p className="shrink-0 font-display text-lg tabular-nums text-gold-2">{dish.price}</p>
-                          ) : null}
-                        </li>
-                      </BlurFade>
-                    ))}
-                  </ul>
-                ) : (
-                  <BlurFade inView>
-                    <p className="mt-6 text-sm text-muted">Today's selection is shared at the table and changes with the season.</p>
-                  </BlurFade>
-                )}
-              </div>
-            </section>
-          ))}
+        <div className="pb-24 md:pb-32">
+          <HoverMenu sections={MENU} />
         </div>
       </div>
 
@@ -118,7 +85,7 @@ export function Menu() {
           <p className="max-w-xl font-display text-xl font-light uppercase tracking-[0.08em] md:text-2xl">
             Dishes are designed to share. Tell us about allergies and we will guide you.
           </p>
-          <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+          <ReserveButton>Reserve a table</ReserveButton>
         </div>
       </section>
     </>

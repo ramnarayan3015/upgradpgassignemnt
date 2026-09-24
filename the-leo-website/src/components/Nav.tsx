@@ -4,7 +4,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { Magnetic } from "@/components/ui/magnetic";
 import { Menu as MenuIcon, X } from "lucide-react";
 import { SITE } from "../data/site";
-import { ButtonLink } from "./Button";
+import { ReserveButton } from "./reserve/ReserveButton";
+import { TonightPill } from "./TonightPill";
 
 const LINKS = [
   { to: "/story", label: "Story" },
@@ -62,10 +63,11 @@ export function Nav() {
               {link.label}
             </NavLink>
           ))}
+          <TonightPill className="ml-2 hidden lg:inline-flex" />
           <Magnetic intensity={0.25} range={80}>
-            <ButtonLink to={SITE.reserveUrl} className="ml-2 !px-5 !py-2.5">
+            <ReserveButton variant="compact" className="ml-2">
               Reserve
-            </ButtonLink>
+            </ReserveButton>
           </Magnetic>
         </nav>
 
@@ -113,7 +115,7 @@ export function Nav() {
               ))}
             </ul>
             <div className="mt-auto flex flex-col gap-4">
-              <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+              <ReserveButton>Reserve a table</ReserveButton>
               <a href={SITE.phoneHref} className="text-center font-display text-sm uppercase tracking-[0.18em] text-cream/70">
                 {SITE.phone}
               </a>
