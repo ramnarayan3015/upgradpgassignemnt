@@ -131,7 +131,7 @@ export const SPACES = [
 export const EVENING = [
   { key: "arrive", title: "Arrive", body: "Come in off Enterprise Boulevard, past the bar, under a ceiling that turns to The Starry Night. Something cold is already being poured.", image: "/images/bar-tall.webp", alt: "The eight-seat bar beneath the mural" },
   { key: "share", title: "Share", body: "Plates land in the middle of the table, not in front of you. Nine starters to choose from, then a main for the table: beef, lamb, pork, or the day's catch.", image: "/images/table-hands.webp", alt: "Hands reaching across a table of shared platters" },
-  { key: "flame", title: "Flame", body: "Canadian Prime and Australian Wagyu meet the fire. The flame is not a tool here; it is the brushstroke.", image: "/images/flame-wide.webp", alt: "Flames rising from the grill" },
+  { key: "flame", title: "Flame", body: "Canadian Prime and Australian Wagyu meet the fire. The flame is not a tool here; it is the brushstroke.", image: "/images/flame-wide.webp", alt: "Flames rising through the grill grates" },
   { key: "toast", title: "Toast", body: "Full-sized desserts, a Canadian wine list built for bold flavour, and one more cocktail than you planned. That is the point.", image: "/images/cocktail-pour.webp", alt: "A cocktail being finished at the bar" },
 ];
 
