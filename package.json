@@ -1,0 +1,10 @@
+{
+  "name": "upgradpgassignemnt",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix the-leo-website ci && npm --prefix the-leo-website run build"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}
