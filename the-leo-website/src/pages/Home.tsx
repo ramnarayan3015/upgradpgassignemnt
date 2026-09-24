@@ -23,6 +23,7 @@ function Hero() {
         />
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-t from-night via-night/50 to-night/10" />
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-night/70 to-transparent" />
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-24 md:px-8 md:pb-24">
         <h1 className="max-w-4xl font-display text-4xl font-light uppercase leading-[1.02] tracking-[0.06em] md:text-6xl lg:text-7xl">
           <RevealWords text="Every plate begins with imagination." />
