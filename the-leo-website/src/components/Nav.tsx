@@ -38,14 +38,17 @@ export function Nav() {
   }, [open]);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ${
-        scrolled || open ? "border-b border-line bg-night/85 backdrop-blur-md" : "border-b border-transparent bg-transparent"
+        scrolled || open
+          ? "border-b border-line bg-night/85 backdrop-blur-md"
+          : "border-b border-transparent bg-gradient-to-b from-night/80 via-night/35 to-transparent md:bg-none"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-[72px] md:px-8">
         <Link to="/" className="group flex items-center gap-3" aria-label="The Leo, home">
-          <img src="/images/logo-lion.png" alt="" width={36} height={36} className="h-9 w-9 rounded-full object-cover" />
+          <img src="/images/mark-gold.png" alt="" width={36} height={36} className="h-9 w-9 object-contain" />
           <span className="font-display text-lg font-medium uppercase tracking-[0.22em] text-cream">The Leo</span>
         </Link>
 
@@ -73,7 +76,7 @@ export function Nav() {
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full text-cream md:hidden cursor-pointer"
+          className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-cream/20 bg-night/55 text-cream shadow-lg backdrop-blur-md transition-colors hover:border-cream/50 md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -83,11 +86,12 @@ export function Nav() {
         </button>
       </div>
 
+    </header>
       <AnimatePresence>
         {open ? (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col bg-night px-6 pt-8 pb-10 md:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-night px-6 pb-10 pt-24 md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -123,6 +127,6 @@ export function Nav() {
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

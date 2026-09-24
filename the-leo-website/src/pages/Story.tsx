@@ -29,7 +29,7 @@ const JOURNEY = [
   {
     title: "Hong Kong",
     content: (
-      <div className="grid gap-6 md:grid-cols-[1fr_260px]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_240px]">
         <div>
           <p className="font-display text-xl uppercase tracking-[0.12em] text-cream">The Demon Chef</p>
           <p className="mt-3 leading-relaxed text-sand/80">
@@ -37,14 +37,14 @@ const JOURNEY = [
             reputation for challenging convention on every plate.
           </p>
         </div>
-        <img src="/images/chef-kitchen.webp" alt="A chef at work in The Leo's kitchen" className="aspect-[4/5] w-full rounded-sm object-cover" loading="lazy" />
+        <img src="/images/chef-kitchen.webp" alt="A chef at work in The Leo's kitchen" className="aspect-[4/5] w-full max-w-[240px] rounded-sm object-cover" loading="lazy" />
       </div>
     ),
   },
   {
     title: "Canada",
     content: (
-      <div className="grid gap-6 md:grid-cols-[1fr_260px]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_240px]">
         <div>
           <p className="font-display text-xl uppercase tracking-[0.12em] text-cream">A familiar face</p>
           <p className="mt-3 leading-relaxed text-sand/80">
@@ -52,14 +52,14 @@ const JOURNEY = [
             steakhouse that doesn't take tradition too literally.
           </p>
         </div>
-        <img src="/images/lion-painting.webp" alt="The Leo's lion painting beneath a swirling sky" className="aspect-square w-full rounded-sm object-cover" loading="lazy" />
+        <img src="/images/lion-painting.webp" alt="The Leo's lion painting beneath a swirling sky" className="aspect-square w-full max-w-[240px] rounded-sm object-cover" loading="lazy" />
       </div>
     ),
   },
   {
     title: "Markham, 2026",
     content: (
-      <div className="grid gap-6 md:grid-cols-[1fr_260px]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_240px]">
         <div>
           <p className="font-display text-xl uppercase tracking-[0.12em] text-cream">The Leo opens</p>
           <p className="mt-3 leading-relaxed text-sand/80">
@@ -67,7 +67,7 @@ const JOURNEY = [
             family-style, with Executive Chef Edan Lister-Stevens and Chef de Cuisine Caleb Eisenberg in the kitchen.
           </p>
         </div>
-        <img src="/images/table-tall.webp" alt="A shared table of dishes at The Leo" className="aspect-[4/5] w-full rounded-sm object-cover" loading="lazy" />
+        <img src="/images/table-tall.webp" alt="A shared table of dishes at The Leo" className="aspect-[4/5] w-full max-w-[240px] rounded-sm object-cover" loading="lazy" />
       </div>
     ),
   },
