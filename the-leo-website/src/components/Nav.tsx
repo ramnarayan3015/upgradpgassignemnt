@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
+import { Magnetic } from "@/components/ui/magnetic";
 import { Menu as MenuIcon, X } from "lucide-react";
 import { SITE } from "../data/site";
 import { ButtonLink } from "./Button";
@@ -61,9 +62,11 @@ export function Nav() {
               {link.label}
             </NavLink>
           ))}
-          <ButtonLink to={SITE.reserveUrl} className="ml-2 !px-5 !py-2.5">
-            Reserve
-          </ButtonLink>
+          <Magnetic intensity={0.25} range={80}>
+            <ButtonLink to={SITE.reserveUrl} className="ml-2 !px-5 !py-2.5">
+              Reserve
+            </ButtonLink>
+          </Magnetic>
         </nav>
 
         <button

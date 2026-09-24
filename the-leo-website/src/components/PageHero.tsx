@@ -1,5 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { RevealWords } from "./Reveal";
+import { motion, useReducedMotion } from "motion/react";
+import { TextEffect } from "@/components/ui/text-effect";
 
 interface PageHeroProps {
   image: string;
@@ -25,9 +25,15 @@ export function PageHero({ image, alt, title, intro, compact }: PageHeroProps) {
       <div className="absolute inset-0 bg-gradient-to-t from-night via-night/55 to-night/20" />
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-night/80 to-transparent" />
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-32 md:px-8 md:pb-20">
-        <h1 className="font-display text-4xl font-light uppercase tracking-[0.08em] leading-[1.05] md:text-6xl">
-          <RevealWords text={title} />
-        </h1>
+        <TextEffect
+          as="h1"
+          per="word"
+          preset="fade-in-blur"
+          speedReveal={1.1}
+          className="font-display text-4xl font-light uppercase tracking-[0.08em] leading-[1.05] md:text-6xl"
+        >
+          {title}
+        </TextEffect>
         {intro ? (
           <motion.p
             className="mt-6 max-w-xl text-base leading-relaxed text-sand md:text-lg"

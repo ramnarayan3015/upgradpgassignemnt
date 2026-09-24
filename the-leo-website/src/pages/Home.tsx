@@ -1,51 +1,88 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { InfiniteSlider } from "@/components/ui/infinite-slider";
+import { Magnetic } from "@/components/ui/magnetic";
+import { ParallaxScroll } from "@/components/ui/parallax-scroll";
+import { Particles } from "@/components/ui/particles";
+import { TextEffect } from "@/components/ui/text-effect";
+import { TextShimmer } from "@/components/ui/text-shimmer";
+import { Tilt } from "@/components/ui/tilt";
 import { ButtonLink } from "../components/Button";
-import { Marquee } from "../components/Marquee";
-import { Reveal, RevealWords } from "../components/Reveal";
 import { CHEFS, SIGNATURES, SITE } from "../data/site";
+
+const ROOM = [
+  "/images/hero-mural.webp",
+  "/images/bar-tall.webp",
+  "/images/table-wide.webp",
+  "/images/mural-tall.webp",
+  "/images/pass-wide.webp",
+  "/images/cocktail-pour.webp",
+  "/images/stairs-square.webp",
+  "/images/crab-bowl.webp",
+  "/images/chef-grill.webp",
+];
 
 function Hero() {
   const reduce = useReducedMotion();
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 600], [0, reduce ? 0 : 120]);
   return (
     <section className="relative flex min-h-dvh items-end overflow-hidden">
-      <motion.div className="absolute inset-0" style={{ y }}>
-        <motion.img
-          src="/images/hero-mural.webp"
-          alt="The Leo's dining room, with its staircase mural of swirling stars and sunflowers"
-          className="h-full w-full object-cover"
-          initial={reduce ? false : { scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-          fetchPriority="high"
-        />
-      </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-t from-night via-night/50 to-night/10" />
+      {reduce ? (
+        <img src="/images/art-starry-sky.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
+      ) : (
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/art-starry-sky.webp"
+          aria-hidden="true"
+        >
+          <source src="/videos/hero.mp4" type="video/mp4" />
+        </video>
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-night via-night/55 to-night/15" />
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-night/70 to-transparent" />
+      {reduce ? null : (
+        <Particles className="absolute inset-0" quantity={70} color="#e2c48f" size={0.6} staticity={35} ease={70} />
+      )}
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-24 md:px-8 md:pb-24">
-        <h1 className="max-w-4xl font-display text-4xl font-light uppercase leading-[1.02] tracking-[0.06em] md:text-6xl lg:text-7xl">
-          <RevealWords text="Every plate begins with imagination." />
-        </h1>
+        <TextShimmer as="p" className="font-display text-xs uppercase tracking-[0.3em] [--base-color:#a58758] [--base-gradient-color:#f1e5d0]" duration={2.4}>
+          Now open in Downtown Markham
+        </TextShimmer>
+        <TextEffect
+          as="h1"
+          per="word"
+          preset="fade-in-blur"
+          delay={0.2}
+          speedReveal={1}
+          className="mt-5 max-w-4xl font-display text-4xl font-light uppercase leading-[1.02] tracking-[0.06em] md:text-6xl lg:text-7xl"
+        >
+          Every plate begins with imagination.
+        </TextEffect>
         <motion.p
           className="mt-6 max-w-xl text-base leading-relaxed text-sand md:text-lg"
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.7 }}
+          transition={{ delay: 0.9, duration: 0.7 }}
         >
-          Chef Alvin Leung's pan-Asian chophouse in Downtown Markham, where land meets sea beneath a painted sky.
+          Chef Alvin Leung's pan-Asian chophouse, where land meets sea beneath a painted sky.
         </motion.p>
         <motion.div
           className="mt-8 flex flex-wrap gap-3"
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.65, duration: 0.7 }}
+          transition={{ delay: 1.05, duration: 0.7 }}
         >
-          <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
-          <ButtonLink to="/menu" variant="outline">
-            View the menu
-          </ButtonLink>
+          <Magnetic intensity={0.3} range={100}>
+            <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+          </Magnetic>
+          <Magnetic intensity={0.3} range={100}>
+            <ButtonLink to="/menu" variant="outline">
+              View the menu
+            </ButtonLink>
+          </Magnetic>
         </motion.div>
       </div>
     </section>
@@ -54,8 +91,8 @@ function Hero() {
 
 function Statement() {
   return (
-    <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-24 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-32">
-      <Reveal>
+    <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-24 md:grid-cols-[1.05fr_0.95fr] md:px-8 md:py-32">
+      <BlurFade inView delay={0.05}>
         <p className="font-display text-2xl font-light leading-snug text-cream md:text-4xl">
           Inspired by the meeting of land and sea, every plate is treated as a composition: premium cuts, pristine
           seafood and Asian influences brought together with precision and artistry.
@@ -69,15 +106,17 @@ function Statement() {
             Our story <ArrowRight size={16} />
           </ButtonLink>
         </div>
-      </Reveal>
-      <Reveal delay={0.1} className="relative">
-        <img
-          src="/images/lion-painting.webp"
-          alt="Painting of a golden lion beneath a swirling starry sky, in the style of Van Gogh"
-          className="aspect-square w-full rounded-sm object-cover"
-          loading="lazy"
-        />
-      </Reveal>
+      </BlurFade>
+      <BlurFade inView delay={0.2}>
+        <Tilt rotationFactor={5} className="rounded-sm">
+          <img
+            src="/images/art-land-sea.webp"
+            alt="Painting of dark earth meeting a cobalt sea in thick brushstrokes"
+            className="aspect-[16/10] w-full rounded-sm object-cover"
+            loading="lazy"
+          />
+        </Tilt>
+      </BlurFade>
     </section>
   );
 }
@@ -86,34 +125,29 @@ function Signatures() {
   return (
     <section className="py-8 md:py-12">
       <div className="mx-auto flex max-w-7xl items-end justify-between gap-6 px-5 md:px-8">
-        <Reveal>
+        <BlurFade inView>
           <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">From the flame</h2>
-        </Reveal>
-        <Reveal delay={0.1} className="hidden md:block">
+        </BlurFade>
+        <BlurFade inView delay={0.1} className="hidden md:block">
           <ButtonLink to="/menu" variant="ghost">
             Full menu <ArrowRight size={16} />
           </ButtonLink>
-        </Reveal>
+        </BlurFade>
       </div>
-      <div className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:px-8">
-        {SIGNATURES.map((dish, index) => (
-          <Reveal key={dish.title} delay={index * 0.05} className="snap-start shrink-0">
-            <figure className="group w-[72vw] sm:w-[44vw] md:w-[30vw] lg:w-[22vw]">
-              <div className="overflow-hidden rounded-sm">
-                <img
-                  src={dish.image}
-                  alt={dish.title}
-                  className="aspect-[3/4] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className="mt-4">
-                <p className="font-display text-base uppercase tracking-[0.14em]">{dish.title}</p>
-                <p className="mt-1 text-sm text-muted">{dish.caption}</p>
-              </figcaption>
-            </figure>
-          </Reveal>
-        ))}
+      <div className="mt-10">
+        <InfiniteSlider gap={20} speed={38} speedOnHover={10}>
+          {SIGNATURES.map((dish) => (
+            <Tilt key={dish.title} rotationFactor={7} className="w-[240px] shrink-0 md:w-[300px]">
+              <figure>
+                <img src={dish.image} alt={dish.title} className="aspect-[3/4] w-full rounded-sm object-cover" loading="lazy" />
+                <figcaption className="mt-4">
+                  <p className="font-display text-sm uppercase tracking-[0.14em] md:text-base">{dish.title}</p>
+                  <p className="mt-1 text-sm text-muted">{dish.caption}</p>
+                </figcaption>
+              </figure>
+            </Tilt>
+          ))}
+        </InfiniteSlider>
       </div>
       <div className="mt-6 px-5 md:hidden">
         <ButtonLink to="/menu" variant="ghost">
@@ -127,7 +161,7 @@ function Signatures() {
 function Space() {
   return (
     <section className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
-      <Reveal className="max-w-2xl">
+      <BlurFade inView className="max-w-2xl">
         <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">
           Beneath a sky of swirling fire
         </h2>
@@ -135,21 +169,10 @@ function Space() {
           Sixty-eight seats, an eight-seat bar and two patios in the heart of Downtown Markham. Downstairs the ceiling
           turns to The Starry Night; upstairs, sunflowers. The mural follows you up the stairs.
         </p>
-      </Reveal>
-      <div className="mt-12 grid gap-4 md:grid-cols-3 md:grid-rows-2">
-        <Reveal className="md:row-span-2">
-          <img src="/images/mural-tall.webp" alt="The staircase beneath the sunflower and starry-sky mural" className="h-full w-full rounded-sm object-cover" loading="lazy" />
-        </Reveal>
-        <Reveal delay={0.1} className="md:col-span-2">
-          <img src="/images/table-wide.webp" alt="A shared table of platters seen from above" className="aspect-[16/9] h-full w-full rounded-sm object-cover" loading="lazy" />
-        </Reveal>
-        <Reveal delay={0.15}>
-          <img src="/images/stairs-square.webp" alt="Sunflower mural along the stairs" className="aspect-square h-full w-full rounded-sm object-cover" loading="lazy" />
-        </Reveal>
-        <Reveal delay={0.2}>
-          <img src="/images/bar-tall.webp" alt="The eight-seat bar under the mural" className="aspect-square h-full w-full rounded-sm object-cover" loading="lazy" />
-        </Reveal>
-      </div>
+      </BlurFade>
+      <BlurFade inView delay={0.15} className="mt-12">
+        <ParallaxScroll images={ROOM} className="h-[36rem] rounded-sm md:h-[44rem]" />
+      </BlurFade>
     </section>
   );
 }
@@ -159,20 +182,22 @@ function Chefs() {
   return (
     <section className="border-y border-line bg-night-2">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:grid-cols-[0.8fr_1.2fr] md:px-8 md:py-32">
-        <Reveal>
-          <img src={alvin!.image} alt={`Chef ${alvin!.name}`} className="aspect-[4/5] w-full rounded-sm object-cover" loading="lazy" />
-        </Reveal>
+        <BlurFade inView>
+          <Tilt rotationFactor={4}>
+            <img src={alvin!.image} alt={`Chef ${alvin!.name}`} className="aspect-[4/5] w-full rounded-sm object-cover" loading="lazy" />
+          </Tilt>
+        </BlurFade>
         <div>
-          <Reveal>
+          <BlurFade inView>
             <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">Two culinary visions</h2>
             <p className="mt-5 max-w-xl leading-relaxed text-sand/80">
               Led by the "Demon Chef" Alvin Leung and a kitchen shaped by Toronto's Michelin-starred rooms, The Leo brings
               a new perspective to the classic steakhouse.
             </p>
-          </Reveal>
+          </BlurFade>
           <ul className="mt-10 divide-y divide-line border-y border-line">
             {[alvin!, ...team].map((chef, index) => (
-              <Reveal key={chef.name} delay={index * 0.08}>
+              <BlurFade key={chef.name} inView delay={index * 0.08}>
                 <li className="grid gap-2 py-6 md:grid-cols-[220px_1fr] md:gap-8">
                   <div>
                     <p className="font-display text-lg uppercase tracking-[0.12em]">{chef.name}</p>
@@ -180,19 +205,40 @@ function Chefs() {
                   </div>
                   <p className="text-sm leading-relaxed text-sand/80">{chef.bio}</p>
                 </li>
-              </Reveal>
+              </BlurFade>
             ))}
           </ul>
+          <div className="mt-8">
+            <ButtonLink to="/story" variant="ghost">
+              Meet the kitchen <ArrowRight size={16} />
+            </ButtonLink>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
+function Band() {
+  const items = ["Land meets sea", "Pan-Asian chophouse", "Downtown Markham", "Open from 5 pm", "Chef Alvin Leung"];
+  return (
+    <div className="border-y border-line py-5" aria-hidden="true">
+      <InfiniteSlider gap={56} speed={28} reverse>
+        {items.map((item) => (
+          <span key={item} className="flex items-center gap-14 font-display text-sm uppercase tracking-[0.28em] text-sand/80">
+            {item}
+            <span className="h-px w-10 bg-gold/60" />
+          </span>
+        ))}
+      </InfiniteSlider>
+    </div>
+  );
+}
+
 function Visit() {
   return (
     <section className="mx-auto grid max-w-7xl gap-10 px-5 py-24 md:grid-cols-2 md:px-8 md:py-32">
-      <Reveal>
+      <BlurFade inView>
         <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">Visit</h2>
         <div className="mt-8 grid gap-8 sm:grid-cols-2">
           <div>
@@ -220,13 +266,15 @@ function Visit() {
           </div>
         </div>
         <div className="mt-10 flex flex-wrap gap-3">
-          <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+          <Magnetic intensity={0.3} range={100}>
+            <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+          </Magnetic>
           <ButtonLink to="/events" variant="outline">
             Private events
           </ButtonLink>
         </div>
-      </Reveal>
-      <Reveal delay={0.1}>
+      </BlurFade>
+      <BlurFade inView delay={0.1}>
         <iframe
           title="Map to The Leo, 162 Enterprise Blvd, Markham"
           src={SITE.mapsEmbed}
@@ -235,7 +283,7 @@ function Visit() {
           referrerPolicy="no-referrer-when-downgrade"
           allowFullScreen
         />
-      </Reveal>
+      </BlurFade>
     </section>
   );
 }
@@ -248,7 +296,7 @@ export function Home() {
       <Signatures />
       <Space />
       <Chefs />
-      <Marquee items={["Land meets sea", "Pan-Asian chophouse", "Downtown Markham", "Open from 5 pm", "Chef Alvin Leung"]} />
+      <Band />
       <Visit />
     </>
   );

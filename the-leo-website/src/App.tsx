@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
@@ -37,6 +38,7 @@ export default function App() {
   const location = useLocation();
   return (
     <div className="min-h-dvh bg-night text-cream">
+      <ScrollProgress className="fixed inset-x-0 top-0 z-[60] h-0.5 bg-gold-2" />
       <ScrollAndTitle />
       <Nav />
       <AnimatePresence mode="wait" initial={false}>

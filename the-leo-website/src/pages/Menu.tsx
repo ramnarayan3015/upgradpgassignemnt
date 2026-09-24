@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { Lens } from "@/components/ui/lens";
 import { ButtonLink } from "../components/Button";
 import { PageHero } from "../components/PageHero";
-import { Reveal } from "../components/Reveal";
 import { MENU, SITE, TASTING_MENU } from "../data/site";
 
 export function Menu() {
@@ -27,8 +29,8 @@ export function Menu() {
     <>
       <PageHero
         compact
-        image="/images/chili-crab-wide.webp"
-        alt="Singapore chili crab on an oval platter"
+        image="/images/starry-texture.webp"
+        alt="Close-up of The Leo's swirling blue ceiling mural"
         title="The menu"
         intro="Shared plates, premium cuts and the day's catch, finished over the flame. Prices in Canadian dollars."
       />
@@ -50,36 +52,44 @@ export function Menu() {
       </div>
 
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <Reveal>
-          <section className="my-16 grid gap-6 rounded-sm border border-gold/40 bg-night-2 p-8 md:grid-cols-[1fr_auto] md:items-center md:p-10">
-            <div>
-              <h2 className="font-display text-2xl uppercase tracking-[0.14em] md:text-3xl">{TASTING_MENU.title}</h2>
-              <p className="mt-3 max-w-xl leading-relaxed text-sand/80">{TASTING_MENU.description}</p>
+        <section className="my-16 grid gap-8 md:grid-cols-[1fr_380px] md:items-stretch">
+          <BlurFade inView className="relative">
+            <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-sm border border-line bg-night-2 p-8 md:p-10">
+              <BorderBeam size={220} duration={9} colorFrom="#a58758" colorTo="#f1e5d0" borderWidth={1.5} />
+              <div>
+                <h2 className="font-display text-2xl uppercase tracking-[0.14em] md:text-3xl">{TASTING_MENU.title}</h2>
+                <p className="mt-3 max-w-xl leading-relaxed text-sand/80">{TASTING_MENU.description}</p>
+              </div>
+              <p className="font-display text-4xl font-light text-gold-2 md:text-5xl">
+                <span className="align-top text-2xl">$</span>
+                {TASTING_MENU.price}
+                <span className="ml-2 text-sm uppercase tracking-[0.18em] text-sand/70">per guest</span>
+              </p>
             </div>
-            <p className="font-display text-4xl font-light text-gold-2 md:text-5xl">
-              <span className="text-2xl align-top">$</span>
-              {TASTING_MENU.price}
-              <span className="ml-2 text-sm uppercase tracking-[0.18em] text-sand/70">per guest</span>
-            </p>
-          </section>
-        </Reveal>
+          </BlurFade>
+          <BlurFade inView delay={0.15}>
+            <Lens zoomFactor={1.8} lensSize={200}>
+              <img src="/images/chili-crab-wide.webp" alt="Singapore chili crab, hover to zoom" className="aspect-[4/3] w-full rounded-sm object-cover md:aspect-auto md:h-full" loading="lazy" />
+            </Lens>
+          </BlurFade>
+        </section>
 
         <div className="flex flex-col gap-20 pb-24 md:pb-32">
           {MENU.map((section) => (
             <section key={section.id} id={section.id} className="scroll-mt-40 grid gap-8 md:grid-cols-[240px_1fr]">
-              <Reveal>
+              <BlurFade inView>
                 <h2 className="font-display text-3xl font-light uppercase tracking-[0.1em] md:sticky md:top-40">{section.title}</h2>
-              </Reveal>
+              </BlurFade>
               <div>
                 {section.note ? (
-                  <Reveal>
+                  <BlurFade inView>
                     <p className="max-w-2xl leading-relaxed text-sand/80">{section.note}</p>
-                  </Reveal>
+                  </BlurFade>
                 ) : null}
                 {section.items.length > 0 ? (
                   <ul className={`divide-y divide-line ${section.note ? "mt-8" : ""}`}>
                     {section.items.map((dish, index) => (
-                      <Reveal key={dish.name} delay={index * 0.04}>
+                      <BlurFade key={dish.name} inView delay={index * 0.04}>
                         <li className="flex items-baseline justify-between gap-6 py-5">
                           <div>
                             <p className="font-display text-lg uppercase tracking-[0.1em]">{dish.name}</p>
@@ -89,13 +99,13 @@ export function Menu() {
                             <p className="shrink-0 font-display text-lg tabular-nums text-gold-2">{dish.price}</p>
                           ) : null}
                         </li>
-                      </Reveal>
+                      </BlurFade>
                     ))}
                   </ul>
                 ) : (
-                  <Reveal>
+                  <BlurFade inView>
                     <p className="mt-6 text-sm text-muted">Today's selection is shared at the table and changes with the season.</p>
-                  </Reveal>
+                  </BlurFade>
                 )}
               </div>
             </section>

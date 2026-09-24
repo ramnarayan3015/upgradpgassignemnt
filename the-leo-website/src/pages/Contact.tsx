@@ -1,6 +1,7 @@
 import { ButtonLink } from "../components/Button";
 import { PageHero } from "../components/PageHero";
-import { Reveal } from "../components/Reveal";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { Magnetic } from "@/components/ui/magnetic";
 import { SITE } from "../data/site";
 
 export function Contact() {
@@ -8,14 +9,15 @@ export function Contact() {
     <>
       <PageHero
         compact
-        image="/images/stairs-square.webp"
-        alt="The Leo's staircase beneath the sunflower mural"
+        image="/images/art-texture.webp"
+        alt=""
         title="Find us in Downtown Markham"
+        intro="162 Enterprise Boulevard, steps from the Markham Pan Am Centre. Open from 5 pm."
       />
 
       <section className="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-2 md:px-8 md:py-28">
         <div className="grid gap-10 sm:grid-cols-2">
-          <Reveal>
+          <BlurFade inView>
             <p className="font-display text-xs uppercase tracking-[0.22em] text-gold-2">Address</p>
             <p className="mt-3 font-display text-xl uppercase tracking-[0.08em]">{SITE.address.area}</p>
             <a href={SITE.mapsUrl} target="_blank" rel="noreferrer" className="mt-2 block leading-relaxed text-sand/80 hover:text-cream">
@@ -23,8 +25,8 @@ export function Contact() {
               <br />
               {SITE.address.line2}
             </a>
-          </Reveal>
-          <Reveal delay={0.05}>
+          </BlurFade>
+          <BlurFade inView delay={0.05}>
             <p className="font-display text-xs uppercase tracking-[0.22em] text-gold-2">Hours</p>
             <div className="mt-3 flex flex-col gap-3">
               {SITE.hours.map((slot) => (
@@ -34,8 +36,8 @@ export function Contact() {
                 </div>
               ))}
             </div>
-          </Reveal>
-          <Reveal delay={0.1}>
+          </BlurFade>
+          <BlurFade inView delay={0.1}>
             <p className="font-display text-xs uppercase tracking-[0.22em] text-gold-2">Call us</p>
             <a href={SITE.phoneHref} className="mt-3 block font-display text-xl tracking-[0.06em] text-cream hover:text-gold-2">
               {SITE.phone}
@@ -43,23 +45,25 @@ export function Contact() {
             <a href={`mailto:${SITE.email}`} className="mt-2 block text-sand/80 hover:text-cream">
               {SITE.email}
             </a>
-          </Reveal>
-          <Reveal delay={0.15}>
+          </BlurFade>
+          <BlurFade inView delay={0.15}>
             <p className="font-display text-xs uppercase tracking-[0.22em] text-gold-2">Stay updated</p>
             <a href={SITE.instagram} target="_blank" rel="noreferrer" className="mt-3 block font-display text-xl tracking-[0.06em] text-cream hover:text-gold-2">
               {SITE.instagramHandle}
             </a>
-          </Reveal>
-          <Reveal delay={0.2} className="sm:col-span-2">
+          </BlurFade>
+          <BlurFade inView delay={0.2} className="sm:col-span-2">
             <div className="flex flex-wrap gap-3">
-              <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+              <Magnetic intensity={0.3} range={100}>
+                <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+              </Magnetic>
               <ButtonLink to={SITE.mapsUrl} variant="outline">
                 Open in Maps
               </ButtonLink>
             </div>
-          </Reveal>
+          </BlurFade>
         </div>
-        <Reveal delay={0.1}>
+        <BlurFade inView delay={0.1}>
           <iframe
             title="Map to The Leo, 162 Enterprise Blvd, Markham"
             src={SITE.mapsEmbed}
@@ -68,7 +72,7 @@ export function Contact() {
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
-        </Reveal>
+        </BlurFade>
       </section>
     </>
   );
