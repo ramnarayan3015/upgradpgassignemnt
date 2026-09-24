@@ -8,7 +8,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[1.4fr_1fr_1fr] md:px-8 md:py-20">
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3">
-            <img src="/images/logo-lion.png" alt="" width={44} height={44} className="h-11 w-11 rounded-full object-cover" />
+            <img src="/images/mark-gold.png" alt="" width={44} height={44} className="h-11 w-11 object-contain" />
             <div>
               <p className="font-display text-xl uppercase tracking-[0.22em]">The Leo</p>
               <p className="text-sm text-muted">Seafood &amp; Chop House</p>

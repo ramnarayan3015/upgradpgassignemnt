@@ -40,9 +40,9 @@ export function Preloader() {
           aria-hidden="true"
         >
           <motion.img
-            src="/images/logo-lion.png"
+            src="/images/mark-gold.png"
             alt=""
-            className="h-16 w-16 rounded-full"
+            className="h-16 w-16 object-contain"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}

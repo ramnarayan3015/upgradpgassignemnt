@@ -79,7 +79,7 @@ export function ReserveDrawer({ open, onClose }: { open: boolean; onClose: () =>
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="font-display text-xs uppercase tracking-[0.24em] text-gold-2">{status.label}</p>
-                <h2 id="reserve-title" className="mt-2 font-display text-3xl font-light uppercase tracking-[0.08em]">
+                <h2 id="reserve-title" className="mt-2 font-display text-2xl font-light uppercase tracking-[0.08em] md:text-3xl">
                   Reserve a table
                 </h2>
                 <p className="mt-1 text-sm text-sand/70">{status.detail}</p>
