@@ -2,6 +2,7 @@ import { ButtonLink } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Magnetic } from "@/components/ui/magnetic";
+import { ReserveButton } from "../components/reserve/ReserveButton";
 import { SITE } from "../data/site";
 
 export function Contact() {
@@ -55,7 +56,7 @@ export function Contact() {
           <BlurFade inView delay={0.2} className="sm:col-span-2">
             <div className="flex flex-wrap gap-3">
               <Magnetic intensity={0.3} range={100}>
-                <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+                <ReserveButton>Reserve a table</ReserveButton>
               </Magnetic>
               <ButtonLink to={SITE.mapsUrl} variant="outline">
                 Open in Maps

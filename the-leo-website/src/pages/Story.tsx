@@ -1,10 +1,11 @@
 import { BlurFade } from "@/components/ui/blur-fade";
 import { TextReveal } from "@/components/ui/text-reveal";
-import { Tilt } from "@/components/ui/tilt";
 import { Timeline } from "@/components/ui/timeline";
 import { ButtonLink } from "../components/Button";
+import { ParallaxArt } from "../components/ParallaxArt";
+import { ReserveButton } from "../components/reserve/ReserveButton";
 import { PageHero } from "../components/PageHero";
-import { CHEFS, SITE } from "../data/site";
+import { CHEFS } from "../data/site";
 
 const MANIFESTO =
   "Beneath a sky of swirling, impasto fire, our namesake lion stands as a testament to the untamed passion of the brushstroke. Inspired by the intensity of an art museum and the fevered, beautiful devotion of Van Gogh, we bring that same kinetic energy to the kitchen. Here, the flame is not merely a tool, but an expression: a bold, textured tribute to a feast where hunger meets masterpiece.";
@@ -92,9 +93,7 @@ export function Story() {
 
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-24 md:grid-cols-2 md:px-8 md:py-32">
         <BlurFade inView>
-          <Tilt rotationFactor={5}>
-            <img src="/images/art-lion.webp" alt="A golden lion painted in Van Gogh's impasto style beneath a starry sky" className="aspect-square w-full rounded-sm object-cover" loading="lazy" />
-          </Tilt>
+          <ParallaxArt />
         </BlurFade>
         <BlurFade inView delay={0.15}>
           <h2 className="font-display text-3xl font-light uppercase tracking-[0.08em] md:text-5xl">Two culinary visions</h2>
@@ -136,7 +135,7 @@ export function Story() {
       <section className="border-t border-line bg-night-2">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:grid-cols-[0.9fr_1.1fr] md:px-8 md:py-32">
           <BlurFade inView>
-            <img src="/images/chili-crab-wide.webp" alt="Singapore chili crab on an oval platter" className="aspect-[4/5] w-full rounded-sm object-cover" loading="lazy" />
+            <img src="/images/chef-grill.webp" alt="A chef working the grill at The Leo" className="aspect-[4/5] w-full rounded-sm object-cover" loading="lazy" />
           </BlurFade>
           <div>
             <BlurFade inView>
@@ -154,9 +153,7 @@ export function Story() {
             </ul>
             <div className="mt-10 flex flex-wrap gap-3">
               <ButtonLink to="/menu">See the menu</ButtonLink>
-              <ButtonLink to={SITE.reserveUrl} variant="outline">
-                Reserve a table
-              </ButtonLink>
+              <ReserveButton variant="outline">Reserve a table</ReserveButton>
             </div>
           </div>
         </div>

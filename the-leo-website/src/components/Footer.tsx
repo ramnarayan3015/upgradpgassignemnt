@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { SITE } from "../data/site";
-import { ButtonLink } from "./Button";
+import { ReserveButton } from "./reserve/ReserveButton";
 
 export function Footer() {
   return (
@@ -19,7 +19,7 @@ export function Footer() {
             swirling, painted sky.
           </p>
           <div>
-            <ButtonLink to={SITE.reserveUrl}>Reserve a table</ButtonLink>
+            <ReserveButton>Reserve a table</ReserveButton>
           </div>
         </div>
 
